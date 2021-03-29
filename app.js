@@ -26,6 +26,8 @@ app.post('/getPages', (req, res) => {
   const pages = [
     {
       name: 'Main',
+      id: 'main',
+      icon: 'main.png',
       components: [
         {
           name: 'head',
@@ -88,8 +90,8 @@ app.post('/getComponent', (req, res) => {
   console.log(req.body);
   const component = {
     main: {
-      head: { text: 'Headline', props: [{ name: 'text', type: 'text' }] },
-      categoryList: { text: 'Category list', types: [{ name: 'Horizontal', src: 'horizontal' }] }
+      head: { text: 'Headline', props: [{ name: 'text', type: 'text' }], types: [] },
+      categoryList: { text: 'Category list', types: [{ name: 'Horizontal', pageScreen: 'horizontal.png' }] }
     }
   };
   res.send(200).json(component[req.body.page][req.body.name]);
