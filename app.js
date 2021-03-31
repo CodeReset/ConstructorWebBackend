@@ -19,15 +19,13 @@ app.post('/add', (req, res) => {
 app.post('/getThemes', (req, res) => {
   console.log(req.body);
   const themes = [];
-  res.send(200).json(themes);
+  res.status(200).json(themes);
 });
 
 app.post('/getPages', (req, res) => {
   const pages = [
     {
       name: 'Main',
-      id: 'main',
-      icon: 'main.png',
       components: [
         {
           name: 'head',
@@ -83,18 +81,18 @@ app.post('/getPages', (req, res) => {
       ]
     }
   ];
-  res.send(200).json(pages);
+  res.status(200).json(pages);
 });
 
 app.post('/getComponent', (req, res) => {
   console.log(req.body);
   const component = {
     main: {
-      head: { text: 'Headline', props: [{ name: 'text', type: 'text' }], types: [] },
-      categoryList: { text: 'Category list', types: [{ name: 'Horizontal', pageScreen: 'horizontal.png' }] }
+      head: { text: 'Headline', types: [], props: [{ name: 'text', type: 'text' }] },
+      categoryList: { text: 'Category list', types: [{ id: 'horizontal', name: 'Horizontal', componentScreen: 'components/horizontal.png', pageScreen: 'pages/main.png' }], props: [] }
     }
   };
-  res.send(200).json(component[req.body.page][req.body.name]);
+  res.status(200).json(component[req.body.page][req.body.name]);
 });
 
 app.listen(port, () => {
