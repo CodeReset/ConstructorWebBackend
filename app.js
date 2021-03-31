@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 
 const app = express();
-const port = 3000;
+const port = 7000;
 
 app.use(express.json({ extended: true }));
 app.use(cors());
@@ -26,6 +26,8 @@ app.post('/getPages', (req, res) => {
   const pages = [
     {
       name: 'Main',
+      id: 'main',
+      icon: 'main.png',
       components: [
         {
           name: 'head',
@@ -40,44 +42,44 @@ app.post('/getPages', (req, res) => {
           text: 'Search',
           type: 'default'
         },
-        {
-          name: 'loaderLogic',
-          entity: 'fragment',
-          type: 'start'
-        },
+        // {
+        //   name: 'loaderLogic',
+        //   entity: 'fragment',
+        //   type: 'start'
+        // },
         {
           name: 'loader',
           entity: 'component',
           text: 'Loader',
           type: 'default'
         },
-        {
-          name: 'view',
-          entity: 'fragment',
-          type: 'start'
-        },
+        // {
+        //   name: 'view',
+        //   entity: 'fragment',
+        //   type: 'start'
+        // },
         {
           name: 'categoryList',
           entity: 'component',
           text: 'Category List',
-          type: 'default'
+          type: 'vertical'
         },
         {
           name: 'productList',
           entity: 'component',
           text: 'Product List',
           type: 'horizontal'
-        },
-        {
-          name: 'view',
-          entity: 'fragment',
-          type: 'end'
-        },
-        {
-          name: 'loaderLogic',
-          entity: 'fragment',
-          type: 'end'
         }
+        // {
+        //   name: 'view',
+        //   entity: 'fragment',
+        //   type: 'end'
+        // },
+        // {
+        //   name: 'loaderLogic',
+        //   entity: 'fragment',
+        //   type: 'end'
+        // }
       ]
     }
   ];
@@ -88,8 +90,42 @@ app.post('/getComponent', (req, res) => {
   console.log(req.body);
   const component = {
     main: {
-      head: { text: 'Headline', types: [], props: [{ name: 'text', type: 'text' }] },
-      categoryList: { text: 'Category list', types: [{ id: 'horizontal', name: 'Horizontal', componentScreen: 'components/horizontal.png', pageScreen: 'pages/main.png' }], props: [] }
+      head: {
+        text: 'Headline',
+        types: [
+          {
+            id: 'oneline',
+            name: 'oneline',
+            componentScreen: `http://localhost:${port}/static/components/oneline.PNG`,
+            pageScreen: `http://localhost:${port}/static/pages/onelinepage.PNG`
+          },
+          {
+            id: 'multiline',
+            name: 'multiline',
+            componentScreen: `http://localhost:${port}/static/components/multiline.PNG`,
+            pageScreen: `http://localhost:${port}/static/pages/multiplelinepage.PNG`
+          }
+        ],
+        props: [{ name: 'text', type: 'text' }]
+      },
+      categoryList: {
+        text: 'Category list',
+        types: [
+          {
+            id: 'vertical',
+            name: 'Vartical',
+            componentScreen: `http://localhost:${port}/static/components/horizontal.png`,
+            pageScreen: `http://localhost:${port}/static/pages/main.png`
+          },
+          {
+            id: 'horizontal',
+            name: 'Horizontal',
+            componentScreen: `http://localhost:${port}/static/components/horizontal.png`,
+            pageScreen: `http://localhost:${port}/static/components/horizontal.png`
+          }
+        ],
+        props: []
+      }
     }
   };
   res.status(200).json(component[req.body.page][req.body.name]);
